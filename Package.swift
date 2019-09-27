@@ -2,9 +2,9 @@
 import PackageDescription
 
 let package = Package(
-    name: "MyVapor",
+    name: "Tasker2019",
     products: [
-        .library(name: "MyVapor", targets: ["App"]),
+        .library(name: "Tasker2019", targets: ["App"]),
     ],
     dependencies: [
         // 💧 A server-side Swift web framework.
@@ -22,4 +22,3 @@ let package = Package(
         .testTarget(name: "AppTests", dependencies: ["App"])
     ]
 )
-

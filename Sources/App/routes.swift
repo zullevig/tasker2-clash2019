@@ -2,6 +2,65 @@ import Vapor
 
 /// Register your application's routes here.
 public func routes(_ router: Router) throws {
+    
+    // MARK: - Object API with Controller
+    let objectController = ObjectController()
+    router.get("object", use: objectController.list)
+    router.get("object", Int.parameter, use: objectController.get)
+    router.post("object", use: objectController.create)
+    router.post("object", "update", use: objectController.update)
+    router.delete("object", Int.parameter, use: objectController.delete)
+    
+    // MARK: - CueItem API with Controller
+    let cueItemController = CueItemController()
+    router.get("cueitem", use: cueItemController.list)
+    router.get("cueitem", Int.parameter, use: cueItemController.get)
+    router.post("cueitem", use: cueItemController.create)
+    router.post("cueitem", "update", use: cueItemController.update)
+    router.delete("cueitem", Int.parameter, use: cueItemController.delete)
+    
+    // MARK: - WorkItem API with Controller
+    let workItemController = WorkItemController()
+    router.get("workitem", use: workItemController.list)
+    router.get("workitem", Int.parameter, use: workItemController.get)
+    router.get("workitem", Int.parameter, "dependencies", use: workItemController.listDependencies)
+    router.get("workitem", Int.parameter, "outputs", use: workItemController.listOutputs)
+    router.get("workitem", Int.parameter, "ingredients", use: workItemController.listIngredients)
+    router.get("workitem", Int.parameter, "cueitems", use: workItemController.listCueItems)
+    router.post("workitem", use: workItemController.create)
+    router.post("workitem", "update", use: workItemController.update)
+    router.delete("workitem", Int.parameter, use: workItemController.delete)
+    
+    // MARK: - Job API with Controller
+    let jobController = JobController()
+    router.get("job", use: jobController.list)
+    router.get("job", Int.parameter, use: jobController.get)
+    router.get("job", Int.parameter, "workitems", use: jobController.listWorkItems)
+        router.post("job", use: jobController.create)
+    router.post("job", "update", use: jobController.update)
+    router.delete("job", Int.parameter, use: jobController.delete)
+
+    // MARK: - WorkItemEvent API with Controller
+    let workItemEventController = WorkItemEventController()
+    router.get("workitem-event", use: workItemEventController.list)
+    router.get("workitem-event", Int.parameter, use: workItemEventController.get)
+    router.post("workitem-event", use: workItemEventController.create)
+    router.post("workitem-event", "update", use: workItemEventController.update)
+    router.delete("workitem-event", Int.parameter, use: workItemEventController.delete)
+    router.get("workitem-event", Int.parameter, "image",  use: workItemEventController.getImage)
+
+    let eventWebController = EventWebController()
+    router.get("workitem-event-view", use: eventWebController.list)
+    
+    // MARK: - JobEvent API with Controller
+    let jobEventController = JobEventController()
+    router.get("job-event", use: jobEventController.list)
+    router.get("job-event", Int.parameter, use: jobEventController.get)
+    router.post("job-event", use: jobEventController.create)
+    router.post("job-event", "update", use: jobEventController.update)
+    router.delete("job-event", Int.parameter, use: jobEventController.delete)
+    
+    
     // Basic "It works" example
     router.get { request in
         return "It works!"
@@ -12,39 +71,18 @@ public func routes(_ router: Router) throws {
         return "Hello, world!"
     }
     
-    // MARK: - API Examples
-    
+    // MARK: - API with Controller Examples
+    let testModelAPIController = TestModelController()
     // API fetch all request example
-    router.get("testmodel") { request -> Future<[TestModel]> in
-        let models = TestModel.query(on: request).all()
-        return models
-    }
-
+    router.get("testmodel", use: testModelAPIController.list)
     // API fetch item by ID request example
-    router.get("testmodel", Int.parameter) { request -> Future<TestModel> in
-        let modelID: Int = try request.parameters.next(Int.self)
-        let model = TestModel.find(modelID, on: request).unwrap(or: NotFound())
-        return model
-    }
-
+    router.get("testmodel", Int.parameter, use: testModelAPIController.getModel)
     // API create item request example
-    router.post("testmodel") { request -> Future<TestModel> in
-        let model = try request.content.decode(TestModel.self)
-        return model.create(on: request)
-    }
-    
+    router.post("testmodel", use: testModelAPIController.create)    
     // API update item request example
-    router.post("testmodel", "update") { request -> Future<TestModel> in
-        let model = try request.content.decode(TestModel.self)
-        return model.update(on: request)
-    }
-
+    router.post("testmodel", "update", use: testModelAPIController.update)
     // API delete item request example
-    router.delete("testmodel", Int.parameter) { request -> Future<TestModel> in
-        let modelID: Int = try request.parameters.next(Int.self)
-        let model = TestModel.find(modelID, on: request).unwrap(or: NotFound())
-        return model.delete(on: request)
-    }
+    router.delete("testmodel", Int.parameter, use: testModelAPIController.delete)
 
     // MARK: - Web Interface Examples
 
@@ -65,3 +103,4 @@ public func routes(_ router: Router) throws {
         }
     }
 }
+

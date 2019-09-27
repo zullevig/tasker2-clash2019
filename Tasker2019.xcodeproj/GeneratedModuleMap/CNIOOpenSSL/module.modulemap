@@ -1,0 +1,4 @@
+module CNIOOpenSSL {
+    umbrella "/Users/zach/Development/Clash/Vapor/tasker-clash2019/.build/checkouts/swift-nio-ssl/Sources/CNIOOpenSSL/include"
+    export *
+}

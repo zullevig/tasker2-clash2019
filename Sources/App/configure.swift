@@ -4,6 +4,7 @@ import FluentMySQL
 
 /// Called before your application initializes.
 public func configure(_ config: inout Config, _ env: inout Environment, _ services: inout Services) throws {
+    
     // Register providers first
     try services.register(FluentMySQLProvider())
     try services.register(LeafProvider())
@@ -39,5 +40,31 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     // Configure migrations
     var migrations = MigrationConfig()
     migrations.add(model: TestModel.self, database: .mysql)
+    migrations.add(model: Object.self, database: .mysql)
+    migrations.add(model: CueItem.self, database: .mysql)
+    migrations.add(model: WorkItem.self, database: .mysql)
+    migrations.add(model: Job.self, database: .mysql)
+    migrations.add(model: WorkItemEvent.self, database: .mysql)
+    migrations.add(model: JobEvent.self, database: .mysql)
+//    migrations.add(migration: WorkItemEventAddImageStringMigration.self, database: .mysql)
     services.register(migrations)
+    
+//    let jsonData = try JSONEncoder().encode(WorkItemDuration.hardMaximumTime(30))
+//    let json = String(data: jsonData, encoding: .utf8)
+//    print(json)
 }
+
+//struct WorkItemEventAddImageStringMigration: Migration {
+//    typealias Database = MySQLDatabase
+//    
+//    static func prepare(on conn: MySQLConnection) -> EventLoopFuture<Void> {
+//        
+//        return Database.update(WorkItemEvent.self, on: conn) { builder in
+//            builder.field(for: \.imageString)
+//        }
+//    }
+//    
+//    static func revert(on conn: MySQLConnection) -> EventLoopFuture<Void> {
+//        return conn.future()
+//    }
+//}

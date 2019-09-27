@@ -1,0 +1,4 @@
+module CCryptoOpenSSL {
+    umbrella "/Users/zach/Development/Clash/Vapor/tasker-clash2019/.build/checkouts/crypto/Sources/CCryptoOpenSSL/include"
+    export *
+}
