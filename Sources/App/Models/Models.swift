@@ -190,7 +190,7 @@ struct WorkItemEvent: Codable {
     var id: Int?
     var workItemId: Int
     var timestamp: TimeInterval
-    var image: Data?
+    var image: Data? 
     var completionDetails: String
     var imageString: String?
     
@@ -200,19 +200,48 @@ struct WorkItemEvent: Codable {
     
 //    init(from decoder: Decoder) throws {
 //        let container = try decoder.container(keyedBy: CodingKeys.self)
-//        id = try container.decode(Int?.self, forKey: .id)
+//        id = try? container.decode(Int.self, forKey: .id)
 //        workItemId = try container.decode(Int.self, forKey: .workItemId)
 //        timestamp = try container.decode(TimeInterval.self, forKey: .timestamp)
 //        completionDetails = try container.decode(String.self, forKey: .completionDetails)
 //
 //        image = try? container.decode(Data.self, forKey: .image)
-//        if let image = image {
-//            imageString = image.base64EncodedString()
-//        }
-//        else {
-//            imageString = nil
-//        }
+//        imageString = nil
+////        if let image = image {
+////            imageString = image.base64EncodedString()
+////        }
+////        else {
+////            imageString = nil
+////        }
 //    }
+    
+//    func encode(to encoder: Encoder) throws {
+////        var saveStruct = self
+////        saveStruct.imageString = nil
+//        var container = encoder.container(keyedBy: CodingKeys.self)
+//        try container.encode(id, forKey: .id)
+//        try container.encode(workItemId, forKey: .workItemId)
+//        try container.encode(timestamp, forKey: .timestamp)
+//        try container.encode(completionDetails, forKey: .completionDetails)
+//        try container.encode(image, forKey: .image)
+//        try container.encode("", forKey: .imageString)
+//    }
+}
+
+struct WorkItemEventWeb: Codable {
+    var id: Int?
+    var workItemId: Int
+    var timestamp: TimeInterval
+    var completionDetails: String
+    var imageString: String?
+    
+    init(from workItemEvent: WorkItemEvent) {
+        id = workItemEvent.id
+        workItemId = workItemEvent.workItemId
+        timestamp = workItemEvent.timestamp
+        completionDetails = workItemEvent.completionDetails
+        imageString = workItemEvent.image?.base64EncodedString()
+    }
 }
 
 struct JobEvent: Codable {

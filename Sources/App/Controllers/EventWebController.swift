@@ -10,11 +10,10 @@ import Vapor
 final class EventWebController {
     func list(_ request: Request) throws -> Future<View> {
         return WorkItemEvent.query(on: request).all().flatMap { results in
-            let data = ["workitem-events": results]
-            results.map({ (event) -> String in
-                print("Image String: \(event.imageString)")
-                return ""
+            let webData = results.map({ (event) -> WorkItemEventWeb in
+                return WorkItemEventWeb(from: event)
             })
+            let data = ["workitem-events": webData]
             return try request.view().render("workitem-event-view", data)
         }
     }

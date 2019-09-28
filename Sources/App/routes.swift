@@ -47,7 +47,7 @@ public func routes(_ router: Router) throws {
     router.post("workitem-event", use: workItemEventController.create)
     router.post("workitem-event", "update", use: workItemEventController.update)
     router.delete("workitem-event", Int.parameter, use: workItemEventController.delete)
-    router.get("workitem-event", Int.parameter, "image",  use: workItemEventController.getImage)
+//    router.get("workitem-event", Int.parameter, "image",  use: workItemEventController.getImage)
 
     let eventWebController = EventWebController()
     router.get("workitem-event-view", use: eventWebController.list)
