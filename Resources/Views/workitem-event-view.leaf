@@ -3,18 +3,22 @@
 <head>
 <title>Model</title>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-<meta http-equiv="refresh" content="5; URL=http://localhost:8080/workitem-event-view">
+<meta http-equiv="refresh" content="5; URL=http://nerdbook.local:8080/workitem-event-view">
 </head>
 <body class="container">
 <h1 class="mt-3"> Work Item Events </h1>
-<div>timestamp : WorkItem ID : Completion Details </div>
-<hr>
-
 #for(item in workitem-events) {
+<p style="border-bottom:1px solid #AAAAAA; margin-bottom:20px; padding-bottom:20px;">
     <p class="mb-0">
-    <img src="data:image/jpeg;base64,#(item.imageString)" style="height:auto;max-height:200px;max-width:200px;width:auto"/>
-    #(item.timestamp) : #(item.workItemId) : #(item.completionDetails)
+        <a href=http://nerdbook.local:8080/workitem-event-view-zoom/#(item.id)>
+        <img src="data:image/jpeg;base64,#(item.imageString)" style="float:left;padding:0 10px 10px 10px;height:auto;max-height:150px;max-width:150px;width:auto"/>
+        </a>
+        Timestamp: #(item.timestamp) <br>
+        Work Item: #(item.workItemId) <br>
+        Details: #(item.completionDetails)
+        <br clear="all">
     </p>
+</p>
 }
 
 </body>
