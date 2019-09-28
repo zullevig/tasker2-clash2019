@@ -10,7 +10,8 @@ public func routes(_ router: Router) throws {
     router.post("object", use: objectController.create)
     router.post("object", "update", use: objectController.update)
     router.delete("object", Int.parameter, use: objectController.delete)
-    
+    router.get("object", "reset", use: objectController.reset)
+
     // MARK: - CueItem API with Controller
     let cueItemController = CueItemController()
     router.get("cueitem", use: cueItemController.list)
@@ -18,7 +19,8 @@ public func routes(_ router: Router) throws {
     router.post("cueitem", use: cueItemController.create)
     router.post("cueitem", "update", use: cueItemController.update)
     router.delete("cueitem", Int.parameter, use: cueItemController.delete)
-    
+    router.get("cueitem", "reset", use: cueItemController.reset)
+
     // MARK: - WorkItem API with Controller
     let workItemController = WorkItemController()
     router.get("workitem", use: workItemController.list)
@@ -30,7 +32,8 @@ public func routes(_ router: Router) throws {
     router.post("workitem", use: workItemController.create)
     router.post("workitem", "update", use: workItemController.update)
     router.delete("workitem", Int.parameter, use: workItemController.delete)
-    
+    router.get("workitem", "reset", use: workItemController.reset)
+
     // MARK: - Job API with Controller
     let jobController = JobController()
     router.get("job", use: jobController.list)
@@ -39,6 +42,7 @@ public func routes(_ router: Router) throws {
         router.post("job", use: jobController.create)
     router.post("job", "update", use: jobController.update)
     router.delete("job", Int.parameter, use: jobController.delete)
+    router.get("job", "reset", use: jobController.reset)
 
     // MARK: - WorkItemEvent API with Controller
     let workItemEventController = WorkItemEventController()
@@ -60,8 +64,9 @@ public func routes(_ router: Router) throws {
     router.post("job-event", use: jobEventController.create)
     router.post("job-event", "update", use: jobEventController.update)
     router.delete("job-event", Int.parameter, use: jobEventController.delete)
-    
-    
+    router.get("job-event", "reset", use: jobEventController.reset)
+
+
     // Basic "It works" example
     router.get { request in
         return "It works!"

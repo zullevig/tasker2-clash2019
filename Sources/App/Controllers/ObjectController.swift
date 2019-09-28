@@ -32,4 +32,10 @@ final class ObjectController {
         let model = Object.find(modelID, on: request).unwrap(or: NotFound())
         return model.delete(on: request)
     }
+    
+    func reset(_ request: Request) throws -> Future<HTTPStatus> {
+        return Object.query(on: request).delete().map {
+            return .ok
+        }
+    }
 }

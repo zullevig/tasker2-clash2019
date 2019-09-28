@@ -68,4 +68,10 @@ final class WorkItemController {
         let model = WorkItem.find(modelID, on: request).unwrap(or: NotFound())
         return model.delete(on: request)
     }
+    
+    func reset(_ request: Request) throws -> Future<HTTPStatus> {
+        return WorkItem.query(on: request).delete().map {
+            return .ok
+        }
+    }
 }

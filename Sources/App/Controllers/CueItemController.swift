@@ -32,5 +32,11 @@ final class CueItemController {
         let model = CueItem.find(modelID, on: request).unwrap(or: NotFound())
         return model.delete(on: request)
     }
+    
+    func reset(_ request: Request) throws -> Future<HTTPStatus> {
+        return CueItem.query(on: request).delete().map {
+            return .ok
+        }
+    }
 }
 

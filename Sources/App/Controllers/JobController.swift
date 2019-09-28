@@ -41,4 +41,10 @@ final class JobController {
         let model = Job.find(modelID, on: request).unwrap(or: NotFound())
         return model.delete(on: request)
     }
+    
+    func reset(_ request: Request) throws -> Future<HTTPStatus> {
+        return Job.query(on: request).delete().map {
+            return .ok
+        }
+    }
 }

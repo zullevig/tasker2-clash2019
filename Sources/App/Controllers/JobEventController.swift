@@ -32,4 +32,10 @@ final class JobEventController {
         let model = JobEvent.find(modelID, on: request).unwrap(or: NotFound())
         return model.delete(on: request)
     }
+    
+    func reset(_ request: Request) throws -> Future<HTTPStatus> {
+        return JobEvent.query(on: request).delete().map {
+            return .ok
+        }
+    }
 }
